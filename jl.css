@@ -1,0 +1,983 @@
+/* MIT License
+
+Copyright (c) 2026 deltanabla
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE. */
+
+@layer foundations {
+  :root {
+    /* Interaction */
+
+    --jl-interactive-target-min-size:
+      var(--jl-interactive-target-min-size-touch);
+    --jl-interactive-target-min-size-touch: 48px;
+    --jl-interactive-target-min-size-pointer: 44px;
+    --jl-interactive-target-spacing: 8px;
+
+    --jl-state-layer-min-size: 40px;
+    --jl-state-layer-opacity-hover: 0.08;
+    --jl-state-layer-opacity-focused: 0.10;
+    --jl-state-layer-opacity-pressed: 0.10;
+    --jl-state-layer-opacity-dragged: 0.16;
+    --jl-state-layer-opacity-disabled: 0.38;
+
+    /* Layout */
+
+    --jl-spacing-block: calc(1lh + var(--jl-type-leading-half));
+
+    /* Extra-large */
+    --jl-layout-margin: max((100svi - 40rem) / 2,
+        1rlh - 1rem,
+        var(--jl-layout-margin-min));
+    --jl-layout-margin-min: 24px;
+
+    /* Compact */
+    @media (width < 600px) {
+      --jl-layout-margin-min: 16px;
+    }
+  }
+
+  /* Structure */
+
+  :is(header, footer):is(body *):not(:is(article, aside, main, nav, section) *) {
+    header& {
+      /* Spacing */
+      padding: 0;
+      margin-block: calc(57rem / 16 * (1.4 + 0.4 / 2));
+    }
+
+    footer& {
+      /* Spacing */
+      padding: 0;
+      margin-block: calc(45rem / 16 * (1.4 + 0.4 / 2));
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    /* Spacing */
+    padding: 0;
+    margin-block: var(--jl-spacing-block);
+    margin-inline: 0;
+
+    /* Rule */
+    border: none;
+
+    text-wrap: balance;
+  }
+
+  h1 {
+    /* Color */
+    color: var(--jl-color-secondary);
+
+    /* Typography */
+    font: var(--jl-typescale-display-large);
+    letter-spacing: var(--jl-typescale-display-large-letter-spacing);
+  }
+
+  h2,
+  h3 {
+    /* Rule */
+    padding-block-end: var(--jl-type-leading-half);
+    margin-block-end:
+      calc(var(--jl-spacing-block) - var(--jl-type-leading-half));
+    border-block-end: calc(max(1em / 16,
+          1px) * 4 * var(--jl-heading-rule-level)) solid var(--jl-color-secondary);
+  }
+
+  h2 {
+    /* Typography */
+    font: var(--jl-typescale-display-medium);
+    letter-spacing: var(--jl-typescale-display-medium-letter-spacing);
+
+    /* Rule */
+    --jl-heading-rule-level: 2;
+  }
+
+  h3 {
+    /* Typography */
+    font: var(--jl-typescale-display-small);
+    letter-spacing: var(--jl-typescale-display-small-letter-spacing);
+
+    /* Rule */
+    --jl-heading-rule-level: 1;
+  }
+
+  h4 {
+    /* Typography */
+    font: var(--jl-typescale-headline-large);
+    letter-spacing: var(--jl-typescale-headline-large-letter-spacing);
+  }
+
+  h5,
+  h6 {
+    /* Chip */
+
+    --jl-heading-chip-size: calc(2rem * var(--jl-heading-chip-level));
+    padding-inline-start: var(--jl-heading-chip-size);
+    position: relative;
+
+    &::before {
+      background: var(--jl-color-secondary);
+      block-size: auto;
+      content: '';
+      display: block;
+      inline-size: calc(var(--jl-heading-chip-size) - var(--jl-type-leading));
+      inset-block:
+        var(--jl-type-leading-half) var(--jl-heading-chip-inset-block-end, 0);
+      inset-inline: 0 auto;
+      position: absolute;
+    }
+  }
+
+  h5 {
+    /* Typography */
+    font: var(--jl-typescale-headline-medium);
+    letter-spacing: var(--jl-typescale-headline-medium-letter-spacing);
+
+    /* Chip */
+    --jl-heading-chip-level: 1;
+  }
+
+  h6 {
+    /* Typography */
+    font: var(--jl-typescale-headline-small);
+    letter-spacing: var(--jl-typescale-headline-small-letter-spacing);
+
+    /* Chip */
+    --jl-heading-chip-level: 2;
+  }
+
+  /* Interaction */
+
+  :enabled,
+  :any-link,
+  :disabled,
+  :hover,
+  :focus-visible,
+  :active {
+    --jl-state-layer:
+      linear-gradient(var(--jl-state-layer-color), var(--jl-state-layer-color));
+    --jl-state-layer-color:
+      rgb(from currentColor r g b / var(--jl-state-layer-opacity));
+    --jl-state-layer-opacity: 0.00;
+  }
+
+  :hover {
+    --jl-state-layer-opacity: var(--jl-state-layer-opacity-hover);
+  }
+
+  :focus-visible {
+    --jl-state-layer-opacity: var(--jl-state-layer-opacity-focused);
+  }
+
+  :active {
+    --jl-state-layer-opacity: var(--jl-state-layer-opacity-pressed);
+  }
+
+  :disabled,
+  :is(a, area):not(:any-link) {
+    --jl-state-layer-opacity: var(--jl-state-layer-opacity-disabled);
+  }
+
+  /* Layout */
+
+  body {
+    padding: 0;
+    margin-block: 0;
+    margin-inline: var(--jl-layout-margin);
+
+    /* Color */
+    background: var(--jl-color-primary);
+    color: var(--jl-color-on-primary);
+    accent-color: var(--jl-color-secondary);
+
+    hyphens: auto;
+    line-break: strict;
+    overflow-wrap: anywhere;
+    scroll-behavior: smooth;
+    word-break: auto-phrase;
+  }
+}
+
+@layer styles {
+  :root {
+    /* Color */
+
+    --jl-palette-primary: var(--jl-palette-accent-red);
+    --jl-palette-secondary: var(--jl-palette-accent-blue);
+    --jl-palette-tertiary: #eb97a8;
+    --jl-palette-link-default: #1971ff;
+    --jl-palette-link-visited: #909;
+    --jl-palette-accent-red-purple: #c54ea0;
+    --jl-palette-accent-red: #bf1e33;
+    --jl-palette-accent-yellow-red: #e45e00;
+    --jl-palette-accent-yellow: #ffbe00;
+    --jl-palette-accent-green-yellow: #b9c42f;
+    --jl-palette-accent-green: #4db56a;
+    --jl-palette-accent-blue-green: #0090a8;
+    --jl-palette-accent-blue: #0067c0;
+    --jl-palette-accent-blue-purple: #704cbc;
+    --jl-palette-accent-purple: #a260bf;
+    --jl-palette-success: #00b06b;
+    --jl-palette-error: #ff4b00;
+    --jl-palette-warning: #f2e700;
+
+    --jl-color-primary:
+      oklab(from var(--jl-palette-primary) var(--jl-oklab-modifier-dark));
+    --jl-color-on-primary: contrast-color(var(--jl-color-primary));
+    --jl-color-primary-link-default:
+      oklab(from var(--jl-palette-link-default) var(--jl-oklab-modifier-light));
+    --jl-color-primary-link-visited:
+      oklab(from var(--jl-palette-link-visited) var(--jl-oklab-modifier-light));
+    --jl-color-primary-success:
+      oklab(from var(--jl-palette-success) var(--jl-oklab-modifier-light));
+    --jl-color-on-primary-success:
+      contrast-color(var(--jl-color-primary-success));
+    --jl-color-primary-error:
+      oklab(from var(--jl-palette-error) var(--jl-oklab-modifier-light));
+    --jl-color-on-primary-error: contrast-color(var(--jl-color-primary-error));
+    --jl-color-primary-warning:
+      oklab(from var(--jl-palette-warning) var(--jl-oklab-modifier-light));
+    --jl-color-on-primary-warning:
+      contrast-color(var(--jl-color-primary-warning));
+
+    --jl-color-secondary:
+      oklab(from var(--jl-palette-secondary) var(--jl-oklab-modifier-light));
+    --jl-color-on-secondary: contrast-color(var(--jl-color-secondary));
+    --jl-color-secondary-link-default:
+      oklab(from var(--jl-palette-link-default) var(--jl-oklab-modifier-dark));
+    --jl-color-secondary-link-visited:
+      oklab(from var(--jl-palette-link-visited) var(--jl-oklab-modifier-dark));
+    --jl-color-secondary-success: var(--jl-palette-success-dark);
+    --jl-color-on-secondary-success:
+      contrast-color(var(--jl-color-secondary-success));
+    --jl-color-secondary-error: var(--jl-palette-error-dark);
+    --jl-color-on-secondary-error:
+      contrast-color(var(--jl-color-secondary-error));
+    --jl-color-secondary-warning: var(--jl-palette-warning-dark);
+    --jl-color-on-secondary-warning:
+      contrast-color(var(--jl-color-secondary-warning));
+
+    --jl-color-tertiary:
+      oklab(from var(--jl-palette-tertiary) var(--jl-oklab-modifier-light));
+    --jl-color-on-tertiary: contrast-color(var(--jl-color-on-tertiary));
+    --jl-color-tertiary-link-default:
+      oklab(from var(--jl-palette-link-default) var(--jl-oklab-modifier-dark));
+    --jl-color-tertiary-link-visited:
+      oklab(from var(--jl-palette-link-visited) var(--jl-oklab-modifier-dark));
+    --jl-color-tertiary-success: var(--jl-palette-success-dark);
+    --jl-color-on-tertiary-success:
+      contrast-color(var(--jl-color-tertiary-success));
+    --jl-color-tertiary-error: var(--jl-palette-error-dark);
+    --jl-color-on-tertiary-error:
+      contrast-color(var(--jl-color-tertiary-error));
+    --jl-color-tertiary-warning: var(--jl-palette-warning-dark);
+    --jl-color-on-tertiary-warning:
+      contrast-color(var(--jl-color-tertiary-warning));
+
+    --jl-color-accent-red-purple:
+      oklab(from var(--jl-palette-accent-red-purple)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-red:
+      oklab(from var(--jl-palette-accent-red)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-yellow-red:
+      oklab(from var(--jl-palette-accent-yellow-red)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-yellow:
+      oklab(from var(--jl-palette-accent-yellow)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-green-yellow:
+      oklab(from var(--jl-palette-accent-green-yellow)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-green:
+      oklab(from var(--jl-palette-accent-green)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-blue-green:
+      oklab(from var(--jl-palette-accent-blue-green)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-blue:
+      oklab(from var(--jl-palette-accent-blue)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-blue-purple:
+      oklab(from var(--jl-palette-accent-blue-purple)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-purple:
+      oklab(from var(--jl-palette-accent-purple)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+
+    --jl-color-shadow: #000;
+
+    --jl-oklab-modifier-light: 0.87 a b;
+    --jl-oklab-modifier-dark: 0.47 a b;
+    --jl-palette-success-dark:
+      oklab(from var(--jl-palette-success) var(--jl-oklab-modifier-dark));
+    --jl-palette-error-dark:
+      oklab(from var(--jl-palette-error) var(--jl-oklab-modifier-dark));
+    --jl-palette-warning-dark:
+      oklab(from var(--jl-palette-warning) var(--jl-oklab-modifier-dark));
+
+    /* Shape */
+
+    --jl-shape-corner-none: 0%;
+    --jl-shape-corner-extra-small: max(4em / 16, 4px);
+    --jl-shape-corner-small: max(8em / 16, 8px);
+    --jl-shape-corner-medium: max(12em / 16, 12px);
+    --jl-shape-corner-large: max(20em / 16, 20px);
+    --jl-shape-corner-extra-large: max(32em / 16, 32px);
+    --jl-shape-corner-extra-extra-large: max(48em / 16, 48px);
+    --jl-shape-corner-full: 50%;
+
+    /* Typography */
+
+    --jl-typeface-brand: var(--jl-typeface-plain);
+    --jl-typeface-plain: 'M PLUS 1', 'Noto Emoji', sans-serif;
+    --jl-typeface-mono: 'M PLUS 1 Code', 'M PLUS 1', 'Noto Emoji', monospace;
+    --jl-typeface-weight-regular: 400;
+    --jl-typeface-weight-medium: 700;
+    --jl-typeface-weight-bold: 900;
+
+    --jl-typescale-display-large:
+      var(--jl-typeface-weight-bold) calc(57rem / 16) / 1.4
+      /* Font */
+      var(--jl-typeface-brand);
+    --jl-typescale-display-large-letter-spacing: 0.00em;
+    --jl-typescale-display-medium:
+      var(--jl-typeface-weight-bold) calc(45rem / 16) / 1.4
+      /* Font */
+      var(--jl-typeface-brand);
+    --jl-typescale-display-medium-letter-spacing: 0.00em;
+    --jl-typescale-display-small:
+      var(--jl-typeface-weight-bold) calc(36rem / 16) / 1.4
+      /* Font */
+      var(--jl-typeface-brand);
+    --jl-typescale-display-small-letter-spacing: 0.01em;
+    --jl-typescale-headline-large:
+      var(--jl-typeface-weight-bold) calc(32rem / 16) / 1.5
+      /* Font */
+      var(--jl-typeface-brand);
+    --jl-typescale-headline-large-letter-spacing: 0.01em;
+    --jl-typescale-headline-medium:
+      var(--jl-typeface-weight-bold) calc(28rem / 16) / 1.5
+      /* Font */
+      var(--jl-typeface-brand);
+    --jl-typescale-headline-medium-letter-spacing: 0.01em;
+    --jl-typescale-headline-small:
+      var(--jl-typeface-weight-bold) calc(24rem / 16) / 1.5
+      /* Font */
+      var(--jl-typeface-brand);
+    --jl-typescale-headline-small-letter-spacing: 0.02em;
+    --jl-typescale-title-large:
+      var(--jl-typeface-weight-bold) calc(22rem / 16) / 1.5
+      /* Font */
+      var(--jl-typeface-brand);
+    --jl-typescale-title-large-letter-spacing: 0.02em;
+    --jl-typescale-title-medium:
+      var(--jl-typeface-weight-bold) calc(16rem / 16) / 1.7
+      /* Font */
+      var(--jl-typeface-plain);
+    --jl-typescale-title-medium-letter-spacing: 0.02em;
+    --jl-typescale-title-small:
+      var(--jl-typeface-weight-bold) calc(14rem / 16) / 1.7
+      /* Font */
+      var(--jl-typeface-plain);
+    --jl-typescale-title-small-letter-spacing: 0.02em;
+    --jl-typescale-body-large:
+      var(--jl-typeface-weight-regular) calc(16rem / 16) / 1.7
+      /* Font */
+      var(--jl-typeface-plain);
+    --jl-typescale-body-large-letter-spacing: 0.02em;
+    --jl-typescale-body-medium:
+      var(--jl-typeface-weight-regular) calc(14rem / 16) / 1.7
+      /* Font */
+      var(--jl-typeface-plain);
+    --jl-typescale-body-medium-letter-spacing: 0.02em;
+    --jl-typescale-body-small:
+      var(--jl-typeface-weight-regular) calc(12rem / 16) / 1.7
+      /* Font */
+      var(--jl-typeface-plain);
+    --jl-typescale-body-small-letter-spacing: 0.02em;
+    --jl-typescale-label-large:
+      var(--jl-typeface-weight-regular) calc(14rem / 16) / 1.7
+      /* Font */
+      var(--jl-typeface-plain);
+    --jl-typescale-label-large-letter-spacing: 0.02em;
+    --jl-typescale-label-medium:
+      var(--jl-typeface-weight-regular) calc(12rem / 16) / 1.7
+      /* Font */
+      var(--jl-typeface-plain);
+    --jl-typescale-label-medium-letter-spacing: 0.02em;
+    --jl-typescale-label-small:
+      var(--jl-typeface-weight-regular) calc(11rem / 16) / 1.7
+      /* Font */
+      var(--jl-typeface-plain);
+    --jl-typescale-label-small-letter-spacing: 0.02em;
+    font: var(--jl-typescale-body-large);
+    font-size: revert-layer;
+    letter-spacing: var(--jl-typescale-body-large-letter-spacing);
+
+    --jl-type-leading-half: calc(var(--jl-type-leading) / 2);
+    --jl-type-leading: calc(1lh - 1em);
+    font-size-adjust: from-font;
+  }
+
+  * {
+    /* Elevation */
+    --jl-surface-tint: linear-gradient(
+        /* Color stop */
+        var(--jl-surface-tint-color),
+        /* Color stop */
+        var(--jl-surface-tint-color));
+    --jl-surface-tint-color:
+      rgb(from var(--jl-color-secondary) r g b / calc(0.01 * (
+            /* 1 */
+            clamp(0, var(--jl-elevation-level), 1)
+            /* 2 */
+            + 2 * clamp(0, var(--jl-elevation-level) - 1, 1)
+            /* 3 */
+            + 3 * clamp(0, var(--jl-elevation-level) - 2, 1)
+            /* 4 */
+            + 2 * clamp(0, var(--jl-elevation-level) - 3, 1)
+            /* 5 */
+            + 4 * clamp(0, var(--jl-elevation-level) - 4, 1))));
+    --jl-elevation-level: 0;
+    --jl-elevation-shadow: 0 calc(1px * (
+          /* #1 1dp: 0 */
+          /* #2 3dp: 3 */
+          /* #3 6dp: 6 - 3 = 3 */
+          3 * clamp(0, var(--jl-elevation-level) - 1, 2)
+          /* #4 8dp: 8 - 6 = 2 */
+          + 2 * clamp(0, var(--jl-elevation-level) - 3, 1)
+          /* #5 12dp: 12 - 8 = 4 */
+          + 4 * clamp(0, var(--jl-elevation-level) - 4, 1)))
+      /* Blur */
+      calc(1px * (
+          /* #1 1dp: 2 */
+          2 * clamp(0, var(--jl-elevation-level), 1)
+          /* #2 3dp: 3 - 2 = 1 */
+          + clamp(0, var(--jl-elevation-level) - 1, 1)
+          /* #3 6dp: 10 - 3 = 7 */
+          + 7 * clamp(0, var(--jl-elevation-level) - 2, 1)
+          /* #4 8dp: 10 - 10 = 0 */
+          /* #5 12dp: 17 - 10 = 7 */
+          + 7 * clamp(0, var(--jl-elevation-level) - 4, 1)))
+      /* Spread */
+      calc(1px * (
+          /* #1 1dp: 0 */
+          /* #2 3dp: 0 */
+          /* #3 6dp: 0 */
+          /* #4 8dp: 1 */
+          /* #5 12dp: 2 - 1 = 1 */
+          clamp(0, var(--jl-elevation-level) - 3, 2)))
+      /* Color */
+      rgb(from var(--jl-color-shadow) r g b / 0.14),
+
+      0 calc(1px * (
+          /* #1 1dp: 2 */
+          2 * clamp(0, var(--jl-elevation-level), 1)
+          /* #2 3dp: 3 - 2 = 1 */
+          + clamp(0, var(--jl-elevation-level) - 1, 1)
+          /* #3 6dp: 1 - 3 = -2 */
+          - 2 * clamp(0, var(--jl-elevation-level) - 2, 1)
+          /* #4 8dp: 3 - 1 = 2 */
+          /* #5 12dp: 5 - 3 = 2 */
+          + 2 * clamp(0, var(--jl-elevation-level) - 3, 2)))
+      /* Blur */
+      calc(1px * (
+          /* #1 1dp: 2 */
+          /* #2 3dp: 4 - 2 = 2 */
+          2 * clamp(0, var(--jl-elevation-level), 2)
+          /* #3 6dp: 18 - 4 = 14 */
+          + 14 * clamp(0, var(--jl-elevation-level) - 2, 1)
+          /* #4 8dp: 14 - 18 = -4 */
+          - 4 * clamp(0, var(--jl-elevation-level) - 3, 1)
+          /* #5 12dp: 22 - 14 = 8 */
+          + 8 * clamp(0, var(--jl-elevation-level) - 4, 1)))
+      /* Spread */
+      calc(1px * (
+          /* #1 1dp: 0 */
+          /* #2 3dp: 0 */
+          /* #3 6dp: 0 */
+          /* #4 8dp: 3 */
+          3 * clamp(0, var(--jl-elevation-level) - 3, 1)
+          /* #5 12dp: 4 - 3 = 1 */
+          + clamp(0, var(--jl-elevation-level) - 4, 1)))
+      /* Color */
+      rgb(from var(--jl-color-shadow) r g b / 0.12),
+
+      0 calc(1px * (
+          /* #1 1dp: 1 */
+          /* #2 3dp: 1 - 1 = 0 */
+          clamp(0, var(--jl-elevation-level), 1)
+          /* #3 6dp: 3 - 1 = 2 */
+          + 2 * clamp(0, var(--jl-elevation-level) - 2, 1)
+          /* #4 8dp: 4 - 3 = 1 */
+          + clamp(0, var(--jl-elevation-level) - 3, 1)
+          /* #5 12dp: 7 - 4 = 3 */
+          + 3 * clamp(0, var(--jl-elevation-level) - 4, 1)))
+      /* Blur */
+      calc(1px * (
+          /* #1 1dp: 3 */
+          3 * clamp(0, var(--jl-elevation-level), 1)
+          /* #2 3dp: 8 - 3 = 5 */
+          + 5 * clamp(0, var(--jl-elevation-level) - 1, 1)
+          /* #3 6dp: 5 - 8 = -3 */
+          - 3 * clamp(0, var(--jl-elevation-level) - 2, 1)
+          /* #4 8dp: 15 - 5 = 10 */
+          + 10 * clamp(0, var(--jl-elevation-level) - 3, 1)
+          /* #5 12dp: 8 - 15 = -7 */
+          - 7 * clamp(0, var(--jl-elevation-level) - 4, 1)))
+      /* Spread */
+      0
+      /* Color */
+      rgb(from var(--jl-color-shadow) r g b / 0.20);
+  }
+}
+
+@layer components {
+  @layer block {
+
+    p,
+    address {
+      /* Typography */
+      font: inherit;
+      letter-spacing: inherit;
+
+      /* Spacing */
+      padding: 0;
+      margin-block: var(--jl-spacing-block);
+      margin-inline: 0;
+    }
+  }
+
+  /* Disclosure */
+
+  @layer disclosure {
+    summary {
+      /* Summary */
+      --jl-disclosure-summary-padding-inline:
+        calc(var(--jl-button-padding-inline)
+          /* Content */
+          + var(--jl-disclosure-content-padding-inline));
+      cursor: default;
+      border-radius: var(--jl-button-shape-square);
+      inline-size: fit-content;
+      list-style: none;
+      padding-block: var(--jl-button-padding-block);
+      padding-inline:
+        /* padding-inline-start */
+        var(--jl-disclosure-summary-padding-inline)
+        /* padding-inline-end */
+        var(--jl-button-padding-inline);
+      margin-block:
+        calc(var(--jl-button-margin-block) - var(--jl-button-padding-block));
+      margin-inline:
+        calc(var(--jl-disclosure-summary-padding-inline) * -1) 0;
+      text-decoration: none;
+      text-underline-offset: var(--jl-button-text-underline-offset);
+
+      /* Icon */
+      --jl-disclosure-icon-color: var(--jl-color-secondary);
+      position: relative;
+
+      /* Icon */
+      &::before {
+        color: var(--jl-disclosure-icon-color);
+        content: var(--jl-disclosure-icon-content);
+        display: block;
+        inline-size: auto;
+        inset-block: var(--jl-button-padding-block) auto;
+        inset-inline: var(--jl-button-padding-inline) auto;
+        position: absolute;
+      }
+
+      &:hover {
+        /* Summary */
+        text-decoration: var(--jl-button-text-decoration);
+
+        /* Icon */
+        --jl-disclosure-icon-color: var(--jl-color-tertiary);
+      }
+    }
+
+    details {
+      /* Icon */
+      --jl-disclosure-icon-content:
+        var(--jl-disclosure-icon-content-closed, '▼');
+
+      /* Content */
+      --jl-disclosure-content-padding-inline: 2rem;
+      padding-block: 0;
+      padding-inline: var(--jl-disclosure-content-padding-inline) 0;
+      margin-block: var(--jl-spacing-block);
+      margin-inline: 0;
+
+      &[open] {
+        /* Icon */
+        --jl-disclosure-icon-content:
+          var(--jl-disclosure-icon-content-opened, '▲');
+      }
+    }
+  }
+
+  /* Form */
+
+  @layer text-field {
+
+    input,
+    textarea,
+    select {
+      /* Color */
+      background: none;
+
+      /* Spacing */
+      padding-inline:
+        calc(var(--jl-text-field-padding-block) + var(--jl-type-leading-half));
+      margin-block:
+        max(var(--jl-type-leading-half), var(--jl-interactive-target-spacing));
+      margin-inline: 0;
+
+      /* Container */
+      --jl-text-field-container-block-size:
+        max((1em - var(--jl-type-leading-half)) * 2 + 1lh,
+          var(--jl-state-layer-min-size));
+      --jl-text-field-padding-block:
+        calc((var(--jl-text-field-container-block-size) - 1lh) / 2
+          /* Outline */
+          - var(--jl-text-field-outline-thickness));
+      padding-block: var(--jl-text-field-padding-block);
+      border-radius: var(--jl-shape-corner-extra-small);
+
+      /* Outline */
+      --jl-text-field-outline-thickness: calc(max(1em / 16, 1px)
+          /* Width */
+          * var(--jl-text-field-outline-thickness-factor));
+      --jl-text-field-outline-thickness-factor: 1;
+      border: var(--jl-text-field-outline-thickness) solid
+        /* Color */
+        rgb(from currentColor r g b / calc(60 / 100));
+
+      /* Input text */
+      color: inherit;
+      font: inherit;
+      letter-spacing: inherit;
+
+      /* Caret */
+      caret-color: var(--jl-color-secondary);
+
+      /* Input text */
+      box-sizing: border-box;
+      inline-size: fit-content;
+      max-inline-size: 100%;
+
+      --jl-text-field-display: initial;
+      display: var(--jl-text-field-display);
+      text-wrap: stable;
+
+      textarea& {
+        /* Textarea */
+        --jl-text-field-resize: vertical;
+        resize: var(--jl-text-field-resize);
+
+        field-sizing: content;
+        overscroll-behavior: contain;
+      }
+
+      &:read-only {
+        border-style: dashed;
+      }
+
+      &:hover {
+        /* Outline */
+        border-color: currentColor;
+      }
+
+      &:focus-visible {
+        /* Outline */
+        --jl-text-field-outline-thickness-factor: 3;
+        border-color: var(--jl-color-secondary);
+      }
+
+      &:user-invalid {
+        /* Color */
+        accent-color: var(--jl-color-primary-error);
+
+        /* Outline */
+        border-color: var(--jl-color-primary-error);
+
+        /* Caret */
+        caret-color: var(--jl-color-primary-error);
+      }
+
+      &:disabled {
+        /* Outline */
+        --jl-text-field-outline-thickness-factor: 1;
+        border-style: solid;
+        border-color: rgb(from currentColor r g b / 0.12);
+
+        /* Input text */
+        color: rgb(from currentColor r g b / 0.38);
+
+        /* Textarea */
+        --jl-text-field-resize: none;
+      }
+    }
+  }
+
+  @layer button {
+    :root {
+      /* Spacing */
+      --jl-button-margin-block:
+        max(var(--jl-type-leading-half), var(--jl-interactive-target-spacing));
+
+      /* Size */
+      --jl-button-container-block-size:
+        max((1em - var(--jl-type-leading-half)) * 2 + 1lh,
+          var(--jl-state-layer-min-size));
+      --jl-button-outline-thickness: max(1em / 16, 1px);
+      --jl-button-icon-size: calc(20em / 16);
+      --jl-button-shape-round: var(--jl-button-container-block-size);
+      --jl-button-shape-square: var(--jl-shape-corner-medium);
+      --jl-button-padding-block:
+        calc((var(--jl-button-container-block-size) - 1lh) / 2);
+      --jl-button-padding-inline:
+        calc(var(--jl-button-padding-block) + var(--jl-type-leading-half));
+
+      --jl-button-text-decoration:
+        underline solid currentColor max(1em / 16, 1px);
+      --jl-button-text-underline-offset: calc(3em / 16);
+    }
+
+    button,
+    input:is([type='button'], [type='reset'], [type='submit']) {
+      /* Color */
+      accent-color: var(--jl-color-tertiary);
+
+      /* Spacing */
+      margin-block: var(--jl-button-margin-block);
+      margin-inline: 0;
+
+      /* Color */
+      --jl-elevation-level: 0;
+      background:
+        /* State layer */
+        var(--jl-state-layer),
+        /* Container */
+        var(--jl-surface-tint) var(--jl-color-secondary);
+      box-shadow: var(--jl-elevation-shadow);
+      color: var(--jl-color-on-secondary);
+
+      /* Size */
+      padding-block: var(--jl-button-padding-block);
+      border: none;
+      border-radius: var(--jl-button-shape-round);
+      font: inherit;
+      font-weight: var(--jl-typeface-weight-medium);
+      letter-spacing: inherit;
+      padding-inline: var(--jl-button-padding-inline);
+
+      box-sizing: border-box;
+      cursor: default;
+      inline-size: fit-content;
+      max-inline-size: 100%;
+      text-decoration: none;
+      text-underline-offset: var(--jl-button-text-underline-offset);
+
+      &:hover {
+        /* Color */
+        --jl-elevation-level: 1;
+
+        text-decoration: var(--jl-button-text-decoration);
+      }
+
+      &:focus-visible,
+      &:active {
+        /* Color */
+        --jl-elevation-level: 0;
+      }
+
+      &:disabled {
+        /* Color */
+        --jl-elevation-level: 0;
+        background-color: rgb(from currentColor r g b / 0.10);
+        color: rgb(from currentColor r g b / 0.38);
+      }
+    }
+  }
+
+  @layer form {
+
+    form,
+    search,
+    fieldset {
+      /* Spacing */
+      padding: 0;
+      margin-block: var(--jl-spacing-block);
+      margin-inline: 0;
+
+      min-inline-size: 0;
+
+      > * {
+        --jl-text-field-display: block;
+      }
+    }
+  }
+
+  /* Link */
+
+  @layer link {
+    :root {
+      --jl-link-color-default: var(--jl-color-primary-link-default);
+      --jl-link-color-visited: var(--jl-color-primary-link-visited);
+    }
+
+    :any-link {
+      --jl-link-text-decoration-thickness: max(1em / 16, 1px);
+      color: inherit;
+      text-decoration:
+        underline solid var(--jl-link-color-default)
+        /* thickness */
+        var(--jl-link-text-decoration-thickness);
+      text-decoration-skip-ink: none;
+      text-underline-offset:
+        calc(max(4em / 16, 4px) - var(--jl-link-text-decoration-thickness));
+
+      &:visited {
+        text-decoration-color: var(--jl-link-color-visited);
+      }
+
+      &:hover {
+        --jl-link-text-decoration-thickness: max(4em / 16, 4px);
+      }
+    }
+  }
+
+  /* PRE */
+
+  @layer pre {
+    :root {
+      --jl-code-span-background: contrast-color(currentColor);
+      --jl-code-span-color: oklch(from var(--jl-color-secondary) L 0 H);
+    }
+
+    pre,
+    code {
+      /* Typography */
+      font: inherit;
+      font-family: var(--jl-typeface-mono);
+      line-height: 1.5;
+      letter-spacing: 0;
+    }
+
+    code {
+      /* Color */
+      background: var(--jl-code-span-background);
+      color: var(--jl-code-span-color);
+
+      /* Shape */
+      --jl-code-span-shape-corner: max(var(--jl-type-leading-half),
+          var(--jl-shape-corner-extra-small));
+      border-radius: var(--jl-shape-corner-extra-small);
+
+      /* Spacing */
+      padding-block:
+        calc(var(--jl-code-span-shape-corner) - var(--jl-type-leading-half));
+      padding-inline: var(--jl-code-span-shape-corner);
+      margin: 0;
+
+      white-space: pre-line;
+    }
+
+    pre {
+      /* Spacing */
+      padding: 0;
+      margin-block: var(--jl-spacing-block);
+      margin-inline: 2rem 0;
+
+      white-space: pre-wrap;
+
+      &:has(> :only-child:is(code)) {
+        /* Spacing */
+        --jl-code-block-padding-block:
+          max(max(1rem,
+              var(--jl-shape-corner-medium)) - var(--jl-type-leading-half),
+            var(--jl-type-leading-half));
+        --jl-code-block-padding-inline: calc(var(--jl-code-block-padding-block)
+            /*  */
+            + var(--jl-type-leading-half));
+        padding-block: var(--jl-code-block-padding-block);
+        padding-inline: var(--jl-code-block-padding-inline);
+        margin-block:
+          calc(var(--jl-spacing-block) - var(--jl-type-leading-half));
+        margin-inline: 0;
+
+        &:has(> code) {
+          /* Color */
+          color: var(--jl-code-span-color);
+
+          /* Card */
+          --jl-elevation-level: 0;
+          background:
+            var(--jl-state-layer, linear-gradient(transparent, transparent)),
+            var(--jl-surface-tint) var(--jl-code-span-background);
+          box-shadow: var(--jl-elevation-shadow);
+          border-radius: var(--jl-shape-corner-medium);
+          min-inline-size: 0;
+
+          overflow: auto;
+          text-overflow: ellipsis;
+          white-space: pre;
+
+          > * {
+            /* Color */
+            background: none;
+            color: inherit;
+
+            white-space: inherit;
+          }
+
+          &:hover {
+            /* Card */
+            --jl-elevation-level: 1;
+          }
+
+          &:active {
+            /* Card */
+            --jl-elevation-level: 0;
+          }
+        }
+      }
+    }
+  }
+}
