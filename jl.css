@@ -786,7 +786,7 @@ SOFTWARE. */
     button,
     input:is([type='button'], [type='reset'], [type='submit']) {
       /* Color */
-      accent-color: var(--jl-color-tertiary);
+      accent-color: currentColor;
 
       /* Spacing */
       margin-block: var(--jl-button-margin-block);
