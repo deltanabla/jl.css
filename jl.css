@@ -753,6 +753,10 @@ SOFTWARE. */
         --jl-text-field-resize: none;
       }
     }
+
+    ::placeholder {
+      color: oklch(from var(--jl-color-secondary) L 0 H);
+    }
   }
 
   @layer button {
