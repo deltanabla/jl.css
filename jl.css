@@ -968,6 +968,9 @@ SOFTWARE. */
             background: none;
             color: inherit;
 
+            /* Spacing */
+            padding: 0;
+
             white-space: inherit;
           }
 
