@@ -777,6 +777,7 @@ SOFTWARE. */
       --jl-button-shape-round: var(--jl-button-container-block-size);
       --jl-button-shape-square: var(--jl-shape-corner-medium);
 
+      --jl-button-text-decoration-line: underline;
       --jl-button-text-decoration-thickness: max(1em / 16, 1px);
       --jl-button-text-decoration-skip-ink: none;
     }
