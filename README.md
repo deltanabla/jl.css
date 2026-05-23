@@ -2,6 +2,8 @@
 
 セマンティックなHTML要素そのものにデザインを適用するCSSライブラリーです。
 
+実際の動作は[ライブ・デモ](https://deltanabla.github.io/jl.css/)で確認できます。
+
 ## 開始
 
 1.  HTMLの`<head>`内で読み込みます。
