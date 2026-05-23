@@ -157,6 +157,18 @@ ZYPRESSEN いよいよ黒く
           </details>
         </article>
         <article>
+          <h3>dialog</h3>
+          <button commandfor="jl-dialog"
+            command="show-modal">show-modal</button>
+          <dialog id="jl-dialog">
+            <form method="dialog">
+              <button>submit</button>
+              <button type="button" commandfor="jl-dialog"
+                command="request-close">request-close</button>
+            </form>
+          </dialog>
+        </article>
+        <article>
           <h3>form</h3>
           <article>
             <h4>search</h4>
@@ -174,6 +186,15 @@ ZYPRESSEN いよいよ黒く
               <button type="submit">submit</button>
               <button type="reset">reset</button>
               <button type="button">button</button>
+            </details>
+            <details name="button">
+              <summary>popovertargetaction</summary>
+              <button popovertarget="jl-button-popovertarget">toggle</button>
+              <dialog popover id="jl-button-popovertarget"
+                aria-label="popovertarget">
+                <button popovertarget="jl-button-popovertarget"
+                  popovertargetaction="hide">hide</button>
+              </dialog>
             </details>
           </article>
         </article>

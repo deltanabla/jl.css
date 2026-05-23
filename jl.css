@@ -172,6 +172,8 @@ SOFTWARE. */
 
   :enabled,
   :any-link,
+  :modal,
+  :popover-open,
   :disabled,
   :hover,
   :focus-visible,
@@ -203,15 +205,16 @@ SOFTWARE. */
   /* Layout */
 
   body {
-    padding: 0;
-    margin-block: 0;
-    margin-inline: var(--jl-layout-margin);
+    padding-block: 0;
+    padding-inline: var(--jl-layout-margin);
+    margin: 0;
 
     /* Color */
     background: var(--jl-color-primary);
     color: var(--jl-color-on-primary);
     accent-color: var(--jl-color-secondary);
 
+    display: flow-root;
     hyphens: auto;
     line-break: strict;
     overflow-wrap: anywhere;
@@ -348,6 +351,11 @@ SOFTWARE. */
     --jl-palette-warning-dark:
       oklab(from var(--jl-palette-warning) var(--jl-oklab-modifier-dark));
 
+    /* Elevation */
+    --jl-elevation-shadow-umbra-opacity: 0.14;
+    --jl-elevation-shadow-penumbra-opacity: 0.12;
+    --jl-elevation-shadow-ambient-opacity: 0.20;
+
     /* Shape */
 
     --jl-shape-corner-none: 0%;
@@ -450,6 +458,8 @@ SOFTWARE. */
     --jl-type-leading-half: calc(var(--jl-type-leading) / 2);
     --jl-type-leading: calc(1lh - 1em);
     font-size-adjust: from-font;
+
+    scrollbar-gutter: stable;
   }
 
   * {
@@ -501,7 +511,9 @@ SOFTWARE. */
           /* #5 12dp: 2 - 1 = 1 */
           clamp(0, var(--jl-elevation-level) - 3, 2)))
       /* Color */
-      oklab(from var(--jl-color-shadow) L a b / 0.14),
+      oklab(from var(--jl-color-shadow) L a b
+        /* alpha-value */
+        / var(--jl-elevation-shadow-umbra-opacity)),
 
       0 calc(1px * (
           /* #1 1dp: 2 */
@@ -534,7 +546,9 @@ SOFTWARE. */
           /* #5 12dp: 4 - 3 = 1 */
           + clamp(0, var(--jl-elevation-level) - 4, 1)))
       /* Color */
-      oklab(from var(--jl-color-shadow) L a b / 0.12),
+      oklab(from var(--jl-color-shadow) L a b
+        /* alpha-value */
+        / var(--jl-elevation-shadow-penumbra-opacity)),
 
       0 calc(1px * (
           /* #1 1dp: 1 */
@@ -561,7 +575,9 @@ SOFTWARE. */
       /* Spread */
       0
       /* Color */
-      oklab(from var(--jl-color-shadow) L a b / 0.20);
+      oklab(from var(--jl-color-shadow) L a b
+        /* alpha-value */
+        / var(--jl-elevation-shadow-ambient-opacity));
   }
 }
 
@@ -578,6 +594,56 @@ SOFTWARE. */
       padding: 0;
       margin-block: var(--jl-spacing-block);
       margin-inline: 0;
+    }
+  }
+
+  /* Dialog */
+  @layer dialog {
+    dialog {
+      /* Spacing */
+      --jl-dialog-padding: max(24px, var(--jl-shape-corner-large));
+      padding-block: 0;
+      padding-inline: var(--jl-dialog-padding);
+
+      /* Container */
+      --jl-elevation-level: 3;
+      background: var(--jl-state-layer),
+        var(--jl-surface-tint) var(--jl-color-primary);
+      box-shadow: var(--jl-elevation-shadow);
+      border-radius: var(--jl-shape-corner-large);
+
+      border: none;
+      box-sizing: border-box;
+      min-inline-size:
+        min(max(1em / 16, 1px) * 280, 100% - var(--jl-layout-margin) * 2);
+      max-inline-size:
+        min(max(1em / 16, 1px) * 560, 100% - var(--jl-layout-margin) * 2);
+
+      &::before,
+      &::after {
+        content: '';
+        display: block;
+        margin-inline: 0;
+      }
+
+      &::before {
+        margin-block: var(--jl-dialog-padding) 0;
+      }
+
+      &::after {
+        margin-block: 0 var(--jl-dialog-padding);
+      }
+    }
+
+    :modal {
+      &::backdrop {
+        background: oklab(from var(--jl-color-scrim, #000) L a b / 0.32);
+        pointer-events: none;
+      }
+
+      body:has(&) {
+        overflow: hidden;
+      }
     }
   }
 

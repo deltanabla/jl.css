@@ -49,6 +49,7 @@
 -   [`button`](#button要素)
 -   `code`
 -   [`details`](#details要素)
+-   `dialog`
 -   `form`
 -   [`h1`から`h6`まで](#h1要素からh6要素まで)
 -   `pre`
