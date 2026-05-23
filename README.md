@@ -29,7 +29,7 @@
          */
         --jl-typeface-brand: var(--jl-typeface-plain);
         --jl-typeface-plain: 'M PLUS 1', 'Noto Emoji', sans-serif;
-        --jl-typeface-mono: 'M PLUS 1 Code', 'M PLUS 1', 'Noto Emoji', monospace;
+        --jl-typeface-mono: 'M PLUS 1 Code', 'Noto Emoji', 'M PLUS 1', monospace;
 
         /* 文字の太さ */
         --jl-typeface-weight-regular: 400;
@@ -44,10 +44,23 @@
 現在は一部の要素に対応しています。
 
 -   `br`
+-   [`button`](#button要素)
 -   `code`
 -   [`details`](#details要素)
+-   `form`
 -   [`h1`から`h6`まで](#h1要素からh6要素まで)
 -   `pre`
+-   `search`
+
+### `button`要素
+
+ボタンのテキストの前にアイコンを配置したい場合は、以下のようにCSS変数を上書きしてください。
+
+```css
+:root {
+  --jl-button-leading-icon-content: '😀';
+}
+```
 
 ### `details`要素
 

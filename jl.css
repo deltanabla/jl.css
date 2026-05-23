@@ -179,7 +179,7 @@ SOFTWARE. */
     --jl-state-layer:
       linear-gradient(var(--jl-state-layer-color), var(--jl-state-layer-color));
     --jl-state-layer-color:
-      rgb(from currentColor r g b / var(--jl-state-layer-opacity));
+      oklab(from currentColor L a b / var(--jl-state-layer-opacity));
     --jl-state-layer-opacity: 0.00;
   }
 
@@ -363,7 +363,7 @@ SOFTWARE. */
 
     --jl-typeface-brand: var(--jl-typeface-plain);
     --jl-typeface-plain: 'M PLUS 1', 'Noto Emoji', sans-serif;
-    --jl-typeface-mono: 'M PLUS 1 Code', 'M PLUS 1', 'Noto Emoji', monospace;
+    --jl-typeface-mono: 'M PLUS 1 Code', 'Noto Emoji', 'M PLUS 1', monospace;
     --jl-typeface-weight-regular: 400;
     --jl-typeface-weight-medium: 700;
     --jl-typeface-weight-bold: 900;
@@ -460,7 +460,7 @@ SOFTWARE. */
         /* Color stop */
         var(--jl-surface-tint-color));
     --jl-surface-tint-color:
-      rgb(from var(--jl-color-secondary) r g b / calc(0.01 * (
+      oklab(from var(--jl-color-secondary) L a b / calc(0.01 * (
             /* 1 */
             clamp(0, var(--jl-elevation-level), 1)
             /* 2 */
@@ -501,7 +501,7 @@ SOFTWARE. */
           /* #5 12dp: 2 - 1 = 1 */
           clamp(0, var(--jl-elevation-level) - 3, 2)))
       /* Color */
-      rgb(from var(--jl-color-shadow) r g b / 0.14),
+      oklab(from var(--jl-color-shadow) L a b / 0.14),
 
       0 calc(1px * (
           /* #1 1dp: 2 */
@@ -534,7 +534,7 @@ SOFTWARE. */
           /* #5 12dp: 4 - 3 = 1 */
           + clamp(0, var(--jl-elevation-level) - 4, 1)))
       /* Color */
-      rgb(from var(--jl-color-shadow) r g b / 0.12),
+      oklab(from var(--jl-color-shadow) L a b / 0.12),
 
       0 calc(1px * (
           /* #1 1dp: 1 */
@@ -561,7 +561,7 @@ SOFTWARE. */
       /* Spread */
       0
       /* Color */
-      rgb(from var(--jl-color-shadow) r g b / 0.20);
+      oklab(from var(--jl-color-shadow) L a b / 0.20);
   }
 }
 
@@ -590,6 +590,7 @@ SOFTWARE. */
         calc(var(--jl-button-padding-inline)
           /* Content */
           + var(--jl-disclosure-content-padding-inline));
+      --jl-button-outline-thickness: 0px;
       cursor: default;
       border-radius: var(--jl-button-shape-square);
       inline-size: fit-content;
@@ -605,6 +606,7 @@ SOFTWARE. */
       margin-inline:
         calc(var(--jl-disclosure-summary-padding-inline) * -1) 0;
       text-decoration: none;
+      text-decoration-skip-ink: var(--jl-button-text-decoration-skip-ink);
       text-underline-offset: var(--jl-button-text-underline-offset);
 
       /* Icon */
@@ -620,6 +622,7 @@ SOFTWARE. */
         inset-block: var(--jl-button-padding-block) auto;
         inset-inline: var(--jl-button-padding-inline) auto;
         position: absolute;
+        scale: var(--jl-button-icon-scale);
       }
 
       &:hover {
@@ -686,7 +689,7 @@ SOFTWARE. */
       --jl-text-field-outline-thickness-factor: 1;
       border: var(--jl-text-field-outline-thickness) solid
         /* Color */
-        rgb(from currentColor r g b / calc(60 / 100));
+        oklab(from currentColor L a b / calc(60 / 100));
 
       /* Input text */
       color: inherit;
@@ -744,10 +747,10 @@ SOFTWARE. */
         /* Outline */
         --jl-text-field-outline-thickness-factor: 1;
         border-style: solid;
-        border-color: rgb(from currentColor r g b / 0.12);
+        border-color: oklab(from currentColor L a b / 0.12);
 
         /* Input text */
-        color: rgb(from currentColor r g b / 0.38);
+        color: oklab(from currentColor L a b / 0.38);
 
         /* Textarea */
         --jl-text-field-resize: none;
@@ -770,72 +773,142 @@ SOFTWARE. */
         max((1em - var(--jl-type-leading-half)) * 2 + 1lh,
           var(--jl-state-layer-min-size));
       --jl-button-outline-thickness: max(1em / 16, 1px);
-      --jl-button-icon-size: calc(20em / 16);
+      --jl-button-icon-scale: calc(20 / 16);
       --jl-button-shape-round: var(--jl-button-container-block-size);
       --jl-button-shape-square: var(--jl-shape-corner-medium);
+
+      --jl-button-text-decoration-thickness: max(1em / 16, 1px);
+      --jl-button-text-decoration-skip-ink: none;
+    }
+
+    * {
+      /* Size */
       --jl-button-padding-block:
-        calc((var(--jl-button-container-block-size) - 1lh) / 2);
+        calc((var(--jl-button-container-block-size) - 1lh) / 2
+          /* Outline thickness */
+          - var(--jl-button-outline-thickness));
       --jl-button-padding-inline:
         calc(var(--jl-button-padding-block) + var(--jl-type-leading-half));
 
       --jl-button-text-decoration:
-        underline solid currentColor max(1em / 16, 1px);
-      --jl-button-text-underline-offset: calc(3em / 16);
+        var(--jl-button-text-decoration-line) solid currentColor
+        /* text-decoration-thickness */
+        var(--jl-button-text-decoration-thickness);
+      --jl-button-text-underline-offset: calc(max(4em / 16, 4px)
+          /* text-decoration-thickness */
+          - var(--jl-button-text-decoration-thickness));
     }
 
     button,
     input:is([type='button'], [type='reset'], [type='submit']) {
       /* Color */
-      accent-color: currentColor;
+      accent-color: var(--jl-color-secondary);
 
       /* Spacing */
       margin-block: var(--jl-button-margin-block);
-      margin-inline: 0;
+      margin-inline: auto 0;
 
       /* Color */
       --jl-elevation-level: 0;
+      border: var(--jl-button-outline-thickness) solid
+        /* Outline color */
+        oklab(from currentColor L a b / calc(30 / 80));
       background:
         /* State layer */
         var(--jl-state-layer),
         /* Container */
-        var(--jl-surface-tint) var(--jl-color-secondary);
+        var(--jl-surface-tint);
       box-shadow: var(--jl-elevation-shadow);
-      color: var(--jl-color-on-secondary);
+      color: var(--jl-button-label-color, currentColor);
 
       /* Size */
       padding-block: var(--jl-button-padding-block);
-      border: none;
       border-radius: var(--jl-button-shape-round);
       font: inherit;
       font-weight: var(--jl-typeface-weight-medium);
       letter-spacing: inherit;
       padding-inline: var(--jl-button-padding-inline);
 
+      --jl-button-display: revert-layer;
       box-sizing: border-box;
       cursor: default;
+      display: var(--jl-button-display);
       inline-size: fit-content;
       max-inline-size: 100%;
-      text-decoration: none;
+      overflow: hidden;
+      text-align: center;
+      text-decoration: var(--jl-button-text-decoration);
+      text-decoration-line: none;
+      text-decoration-skip-ink: var(--jl-button-text-decoration-skip-ink);
       text-underline-offset: var(--jl-button-text-underline-offset);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      &::before {
+        --jl-button-icon-inline-size: 2em;
+        block-size: auto;
+        content: var(--jl-button-leading-icon-content, normal);
+        display: inline flow-root;
+        inline-size: var(--jl-button-icon-inline-size);
+        scale: var(--jl-button-icon-scale);
+        text-align: start;
+      }
+
+      &[type='submit'],
+      &[type]:not([type='reset'], [type='button'], [command][commandfor]),
+      &:not([type]):is(form *, [form] *, [form]) {
+        /* Color */
+        accent-color: currentColor;
+
+        /* Color */
+        --jl-elevation-level: var(--jl-button-filled-elevation-level, 0);
+        background-color:
+          var(--jl-button-filled-container-color, var(--jl-color-secondary));
+        color:
+          var(--jl-button-filled-label-color, var(--jl-color-on-secondary));
+
+        /* Size */
+        --jl-button-outline-thickness: 0px;
+        border: none;
+      }
+
+      &[type='reset'] {
+        /* Size */
+        --jl-button-outline-thickness: 0px;
+        border: none;
+
+        --jl-button-text-decoration-thickness:
+          var(--jl-button-text-text-decoration-thickness, max(1em / 16, 1px));
+        text-decoration-line: var(--jl-button-text-decoration-line);
+        text-decoration-color: var(--jl-color-primary-error);
+      }
 
       &:hover {
         /* Color */
-        --jl-elevation-level: 1;
+        --jl-button-filled-elevation-level: 1;
 
-        text-decoration: var(--jl-button-text-decoration);
+        --jl-button-text-text-decoration-thickness: max(4em / 16, 4px);
+        text-decoration-line: underline;
       }
 
       &:focus-visible,
       &:active {
         /* Color */
-        --jl-elevation-level: 0;
+        --jl-button-filled-elevation-level: 0;
       }
 
       &:disabled {
         /* Color */
-        --jl-elevation-level: 0;
-        background-color: rgb(from currentColor r g b / 0.10);
-        color: rgb(from currentColor r g b / 0.38);
+        --jl-button-filled-container-color:
+          oklab(from currentColor L a b / 0.10);
+        --jl-button-label-color: oklab(from currentColor L a b / 0.38);
+        --jl-button-filled-label-color: var(--jl-button-label-color);
+        border-color: oklab(from currentColor L a b / calc(30 / 90));
+
+        /* Size */
+        --jl-button-filled-elevation-level: 0;
+
+        text-decoration: none;
       }
     }
   }
@@ -854,6 +927,7 @@ SOFTWARE. */
 
       > * {
         --jl-text-field-display: block;
+        --jl-button-display: block;
       }
     }
   }
@@ -867,22 +941,17 @@ SOFTWARE. */
     }
 
     :any-link {
-      --jl-link-text-decoration-thickness: max(1em / 16, 1px);
       color: inherit;
-      text-decoration:
-        underline solid var(--jl-link-color-default)
-        /* thickness */
-        var(--jl-link-text-decoration-thickness);
-      text-decoration-skip-ink: none;
-      text-underline-offset:
-        calc(max(4em / 16, 4px) - var(--jl-link-text-decoration-thickness));
+      text-decoration: var(--jl-button-text-decoration);
+      text-decoration-skip-ink: var(--jl-button-text-decoration-skip-ink);
+      text-underline-offset: var(--jl-button-text-underline-offset);
 
       &:visited {
         text-decoration-color: var(--jl-link-color-visited);
       }
 
       &:hover {
-        --jl-link-text-decoration-thickness: max(4em / 16, 4px);
+        --jl-button-text-decoration-thickness: max(4em / 16, 4px);
       }
     }
   }
