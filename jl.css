@@ -28,7 +28,7 @@ SOFTWARE. */
       var(--jl-interactive-target-min-size-touch);
     --jl-interactive-target-min-size-touch: 48px;
     --jl-interactive-target-min-size-pointer: 44px;
-    --jl-interactive-target-spacing: 8px;
+    --jl-interactive-target-spacing: var(--jl-space-100);
 
     --jl-state-layer-min-size: 40px;
     --jl-state-layer-opacity-hover: 0.08;
@@ -39,17 +39,15 @@ SOFTWARE. */
 
     /* Layout */
 
-    --jl-spacing-block: calc(1lh + var(--jl-type-leading-half));
-
     /* Extra-large */
     --jl-layout-margin: max((100svi - 40rem) / 2,
         1rlh - 1rem,
         var(--jl-layout-margin-min));
-    --jl-layout-margin-min: 24px;
+    --jl-layout-margin-min: var(--jl-space-300);
 
     /* Compact */
     @media (width < 600px) {
-      --jl-layout-margin-min: 16px;
+      --jl-layout-margin-min: var(--jl-space-200);
     }
   }
 
@@ -77,7 +75,7 @@ SOFTWARE. */
   h6 {
     /* Spacing */
     padding: 0;
-    margin-block: var(--jl-spacing-block);
+    margin-block: var(--jl-space-block);
     margin-inline: 0;
 
     /* Rule */
@@ -99,10 +97,13 @@ SOFTWARE. */
   h3 {
     /* Rule */
     padding-block-end: var(--jl-type-leading-half);
-    margin-block-end:
-      calc(var(--jl-spacing-block) - var(--jl-type-leading-half));
-    border-block-end: calc(max(1em / 16,
-          1px) * 4 * var(--jl-heading-rule-level)) solid var(--jl-color-secondary);
+    margin-block-end: calc(var(--jl-space-block) - var(--jl-type-leading-half));
+    border-block-end:
+      calc(max(4em / 16, 4px) * var(--jl-heading-rule-level))
+      /* style */
+      solid
+      /* color */
+      var(--jl-color-secondary);
   }
 
   h2 {
@@ -367,6 +368,64 @@ SOFTWARE. */
     --jl-shape-corner-extra-extra-large: max(48em / 16, 48px);
     --jl-shape-corner-full: 50%;
 
+    /* Spacing */
+
+    /* 0 */
+    --jl-space-0: calc(var(--jl-space-100) * 0.00);
+
+    /* 2dp */
+    --jl-space-25: calc(var(--jl-space-100) * 0.25);
+
+    /* 4dp */
+    --jl-space-50: calc(var(--jl-space-100) * 0.50);
+
+    /* 6dp */
+    --jl-space-75: calc(var(--jl-space-100) * 0.75);
+
+    /* 8dp */
+    --jl-space-100: 8px;
+
+    /* 10dp */
+    --jl-space-125: calc(var(--jl-space-100) * 1.25);
+
+    /* 12dp */
+    --jl-space-150: calc(var(--jl-space-100) * 1.50);
+
+    /* 14dp */
+    --jl-space-175: calc(var(--jl-space-100) * 1.75);
+
+    /* 16dp */
+    --jl-space-200: calc(var(--jl-space-100) * 2.00);
+
+    /* 20dp */
+    --jl-space-250: calc(var(--jl-space-100) * 2.50);
+
+    /* 24dp */
+    --jl-space-300: calc(var(--jl-space-100) * 3.00);
+
+    /* 32dp */
+    --jl-space-400: calc(var(--jl-space-100) * 4.00);
+
+    /* 36dp */
+    --jl-space-450: calc(var(--jl-space-100) * 4.50);
+
+    /* 40dp */
+    --jl-space-500: calc(var(--jl-space-100) * 5.00);
+
+    /* 48dp */
+    --jl-space-600: calc(var(--jl-space-100) * 6.00);
+
+    /* 56dp */
+    --jl-space-700: calc(var(--jl-space-100) * 7.00);
+
+    /* 64dp */
+    --jl-space-800: calc(var(--jl-space-100) * 8.00);
+
+    /* 72dp */
+    --jl-space-900: calc(var(--jl-space-100) * 9.00);
+
+    --jl-space-block: calc(1lh + var(--jl-type-leading-half));
+
     /* Typography */
 
     --jl-typeface-brand: var(--jl-typeface-plain);
@@ -592,7 +651,7 @@ SOFTWARE. */
 
       /* Spacing */
       padding: 0;
-      margin-block: var(--jl-spacing-block);
+      margin-block: var(--jl-space-block);
       margin-inline: 0;
     }
   }
@@ -601,7 +660,8 @@ SOFTWARE. */
   @layer dialog {
     dialog {
       /* Spacing */
-      --jl-dialog-padding: max(24px, var(--jl-shape-corner-large));
+      --jl-dialog-padding:
+        max(var(--jl-space-300), var(--jl-shape-corner-large));
       padding-block: 0;
       padding-inline: var(--jl-dialog-padding);
 
@@ -709,7 +769,7 @@ SOFTWARE. */
       --jl-disclosure-content-padding-inline: 2rem;
       padding-block: 0;
       padding-inline: var(--jl-disclosure-content-padding-inline) 0;
-      margin-block: var(--jl-spacing-block);
+      margin-block: var(--jl-space-block);
       margin-inline: 0;
 
       &[open] {
@@ -861,7 +921,7 @@ SOFTWARE. */
         var(--jl-button-text-decoration-line) solid currentColor
         /* text-decoration-thickness */
         var(--jl-button-text-decoration-thickness);
-      --jl-button-text-underline-offset: calc(max(4em / 16, 4px)
+      --jl-button-text-underline-offset: calc(max(4em / 16, var(--jl-space-50))
           /* text-decoration-thickness */
           - var(--jl-button-text-decoration-thickness));
     }
@@ -987,7 +1047,7 @@ SOFTWARE. */
     fieldset {
       /* Spacing */
       padding: 0;
-      margin-block: var(--jl-spacing-block);
+      margin-block: var(--jl-space-block);
       margin-inline: 0;
 
       min-inline-size: 0;
@@ -1006,7 +1066,7 @@ SOFTWARE. */
 
       /* Spacing */
       --jl-snackbar-padding:
-        max(1rem, 16px, var(--jl-shape-corner-extra-small));
+        max(1rem, var(--jl-space-200), var(--jl-shape-corner-extra-small));
       padding-block:
         calc(var(--jl-snackbar-padding) - var(--jl-type-leading-half));
       padding-inline: var(--jl-snackbar-padding);
@@ -1096,7 +1156,7 @@ SOFTWARE. */
     pre {
       /* Spacing */
       padding: 0;
-      margin-block: var(--jl-spacing-block);
+      margin-block: var(--jl-space-block);
       margin-inline: 2rem 0;
 
       white-space: pre-wrap;
@@ -1112,8 +1172,7 @@ SOFTWARE. */
             + var(--jl-type-leading-half));
         padding-block: var(--jl-code-block-padding-block);
         padding-inline: var(--jl-code-block-padding-inline);
-        margin-block:
-          calc(var(--jl-spacing-block) - var(--jl-type-leading-half));
+        margin-block: calc(var(--jl-space-block) - var(--jl-type-leading-half));
         margin-inline: 0;
 
         &:has(> code) {
