@@ -999,6 +999,38 @@ SOFTWARE. */
     }
   }
 
+  @layer snackbar {
+    output[popover] {
+      /* Color */
+      accent-color: currentColor;
+
+      /* Spacing */
+      --jl-snackbar-padding:
+        max(1rem, 16px, var(--jl-shape-corner-extra-small));
+      padding-block:
+        calc(var(--jl-snackbar-padding) - var(--jl-type-leading-half));
+      padding-inline: var(--jl-snackbar-padding);
+      margin: 0;
+
+      /* Container */
+      --jl-elevation-level: 3;
+      background: var(--jl-state-layer),
+        var(--jl-surface-tint) oklch(from var(--jl-color-secondary) L 0 H);
+      box-shadow: var(--jl-elevation-shadow);
+      border-radius: var(--jl-shape-corner-extra-small);
+
+      /* Supporting text */
+      color: var(--jl-color-on-secondary);
+
+      border: none;
+      box-sizing: border-box;
+      inset-block: auto var(--jl-layout-margin-min);
+      inset-inline: auto var(--jl-layout-margin-min);
+      max-block-size: calc(100% - var(--jl-layout-margin-min) * 2);
+      max-inline-size: calc(100% - var(--jl-layout-margin-min) * 2);
+    }
+  }
+
   /* Link */
 
   @layer link {

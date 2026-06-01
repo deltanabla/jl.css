@@ -52,6 +52,8 @@
 -   `dialog`
 -   `form`
 -   [`h1`から`h6`まで](#h1要素からh6要素まで)
+-   `output`
+    -   [`output[popover]`](#outputpopover要素)
 -   `pre`
 -   `search`
 
@@ -84,3 +86,23 @@
 :root {
   --jl-heading-chip-inset-block-end: var(--jl-type-leading-half);
 }
+```
+
+### `output[popover]`要素
+
+ポップオーバーAPIと組み合わせて、スナックバーのように機能させることができます。
+
+```html
+<button popovertarget="snackbar">LABEL</button>
+<output id="snackbar" popover="manual">SUPPORT-TEXT</output>
+```
+
+動的に制御するために、[`SnackbarAttacher`クラス](./src/js/snackbar-attacher.js)を利用することも可能です。
+
+```html
+<script type="module">
+  import {SnackbarAttacher} from './src/js/snackbar-attacher.js';
+
+  const snackbarAttacher = new SnackbarAttacher('#snackbar');
+  snackbarAttacher.attach();
+</script>

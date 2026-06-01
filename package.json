@@ -1,0 +1,31 @@
+{
+  "name": "jl.css",
+  "version": "0.0.0-beta",
+  "description": "セマンティックなHTML要素そのものにデザインを適用するCSSライブラリーです。",
+  "keywords": [
+    "css",
+    "javascript",
+    "webapi"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deltanabla/jl.css.git"
+  },
+  "bugs": {
+    "url": "https://github.com/deltanabla/jl.css/issues"
+  },
+  "homepage": "https://github.com/deltanabla/jl.css",
+  "license": "MIT",
+  "author": {
+    "name": "一二一二一二",
+    "url": "https://github.com/deltanabla"
+  },
+  "files": [
+    "./jl.css",
+    "./index.js",
+    "./src"
+  ],
+  "private": true,
+  "exports": "./index.js",
+  "type": "module"
+}
