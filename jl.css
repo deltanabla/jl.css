@@ -353,9 +353,50 @@ SOFTWARE. */
       oklab(from var(--jl-palette-warning) var(--jl-oklab-modifier-dark));
 
     /* Elevation */
+
     --jl-elevation-shadow-umbra-opacity: 0.14;
     --jl-elevation-shadow-penumbra-opacity: 0.12;
     --jl-elevation-shadow-ambient-opacity: 0.20;
+
+    /* Motion */
+
+    /* Motion physics system */
+    --jl-motion-spring-fast-spatial:
+      var(--jl-motion-spring-standard-fast-spatial);
+    --jl-motion-spring-default-spatial:
+      var(--jl-motion-spring-standard-default-spatial);
+    --jl-motion-spring-slow-spatial:
+      var(--jl-motion-spring-standard-slow-spatial);
+    --jl-motion-spring-fast-effects:
+      var(--jl-motion-spring-standard-fast-effects);
+    --jl-motion-spring-default-effects:
+      var(--jl-motion-spring-standard-default-effects);
+    --jl-motion-spring-slow-effects:
+      var(--jl-motion-spring-standard-slow-effects);
+    --jl-motion-spring-expressive-fast-spatial:
+      350ms cubic-bezier(0.42, 1.67, 0.21, 0.90);
+    --jl-motion-spring-expressive-default-spatial:
+      500ms cubic-bezier(0.38, 1.21, 0.22, 1.00);
+    --jl-motion-spring-expressive-slow-spatial:
+      650ms cubic-bezier(0.39, 1.29, 0.35, 0.98);
+    --jl-motion-spring-expressive-fast-effects:
+      150ms cubic-bezier(0.31, 0.94, 0.34, 1.00);
+    --jl-motion-spring-expressive-default-effects:
+      200ms cubic-bezier(0.34, 0.80, 0.34, 1.00);
+    --jl-motion-spring-expressive-slow-effects:
+      300ms cubic-bezier(0.34, 0.88, 0.34, 1.00);
+    --jl-motion-spring-standard-fast-spatial:
+      350ms cubic-bezier(0.27, 1.06, 0.18, 1.00);
+    --jl-motion-spring-standard-default-spatial:
+      500ms cubic-bezier(0.27, 1.06, 0.18, 1.00);
+    --jl-motion-spring-standard-slow-spatial:
+      750ms cubic-bezier(0.27, 1.06, 0.18, 1.00);
+    --jl-motion-spring-standard-fast-effects:
+      150ms cubic-bezier(0.31, 0.94, 0.34, 1.00);
+    --jl-motion-spring-standard-default-effects:
+      200ms cubic-bezier(0.34, 0.80, 0.34, 1.00);
+    --jl-motion-spring-standard-slow-effects:
+      300ms cubic-bezier(0.34, 0.88, 0.34, 1.00);
 
     /* Shape */
 
@@ -519,6 +560,23 @@ SOFTWARE. */
     font-size-adjust: from-font;
 
     scrollbar-gutter: stable;
+
+    /* Motion */
+
+    @media (prefers-reduced-motion: reduce) {
+      --jl-motion-spring-expressive-fast-spatial: 0ms;
+      --jl-motion-spring-expressive-default-spatial: 0ms;
+      --jl-motion-spring-expressive-slow-spatial: 0ms;
+      --jl-motion-spring-expressive-fast-effects: 0ms;
+      --jl-motion-spring-expressive-default-effects: 0ms;
+      --jl-motion-spring-expressive-slow-effects: 0ms;
+      --jl-motion-spring-standard-fast-spatial: 0ms;
+      --jl-motion-spring-standard-default-spatial: 0ms;
+      --jl-motion-spring-standard-slow-spatial: 0ms;
+      --jl-motion-spring-standard-fast-effects: 0ms;
+      --jl-motion-spring-standard-default-effects: 0ms;
+      --jl-motion-spring-standard-slow-effects: 0ms;
+    }
   }
 
   * {
@@ -659,6 +717,10 @@ SOFTWARE. */
   /* Dialog */
   @layer dialog {
     dialog {
+      /* Motion */
+      animation:
+        jl-dialog-transition-exit var(--jl-motion-spring-default-spatial);
+
       /* Spacing */
       --jl-dialog-padding:
         max(var(--jl-space-300), var(--jl-shape-corner-large));
@@ -693,16 +755,52 @@ SOFTWARE. */
       &::after {
         margin-block: 0 var(--jl-dialog-padding);
       }
+
+      &[open] {
+        animation-name: jl-dialog-transition-enter;
+      }
     }
 
     :modal {
       &::backdrop {
+        /* Motion */
+        transition: all var(--jl-motion-spring-slow-effects) allow-discrete;
+
         background: oklab(from var(--jl-color-scrim, #000) L a b / 0.32);
         pointer-events: none;
+
+        /* Motion */
+        @starting-style {
+          opacity: 0;
+        }
       }
 
       body:has(&) {
         overflow: hidden;
+      }
+    }
+
+    /* Motion */
+
+    @keyframes jl-dialog-transition-enter {
+      0% {
+        display: none;
+        inset-block-start: 100%;
+      }
+
+      100% {
+        display: flow-root;
+      }
+    }
+
+    @keyframes jl-dialog-transition-exit {
+      0% {
+        display: flow-root;
+      }
+
+      100% {
+        display: none;
+        inset-block-start: 100%;
       }
     }
   }
@@ -789,6 +887,12 @@ SOFTWARE. */
     select {
       /* Color */
       background: none;
+
+      /* Motion */
+      transition: accent-color var(--jl-motion-spring-fast-effects),
+        border-style var(--jl-motion-spring-fast-effects),
+        border-color var(--jl-motion-spring-fast-effects),
+        caret-color var(--jl-motion-spring-fast-effects);
 
       /* Spacing */
       padding-inline:
@@ -931,6 +1035,16 @@ SOFTWARE. */
       /* Color */
       accent-color: var(--jl-color-secondary);
 
+      /* Motion */
+      transition: accent-color var(--jl-motion-spring-fast-effects),
+        background var(--jl-motion-spring-fast-effects),
+        border-style var(--jl-motion-spring-fast-effects),
+        border-color var(--jl-motion-spring-fast-effects),
+        box-shadow var(--jl-motion-spring-fast-spatial),
+        color var(--jl-motion-spring-fast-effects),
+        text-decoration-color var(--jl-motion-spring-fast-effects),
+        text-decoration-thickness var(--jl-motion-spring-fast-spatial);
+
       /* Spacing */
       margin-block: var(--jl-button-margin-block);
       margin-inline: auto 0;
@@ -1064,6 +1178,10 @@ SOFTWARE. */
       /* Color */
       accent-color: currentColor;
 
+      /* Motion */
+      animation:
+        jl-snackbar-transition-exit var(--jl-motion-spring-default-spatial);
+
       /* Spacing */
       --jl-snackbar-padding:
         max(1rem, var(--jl-space-200), var(--jl-shape-corner-extra-small));
@@ -1088,6 +1206,32 @@ SOFTWARE. */
       inset-inline: auto var(--jl-layout-margin-min);
       max-block-size: calc(100% - var(--jl-layout-margin-min) * 2);
       max-inline-size: calc(100% - var(--jl-layout-margin-min) * 2);
+
+      &:popover-open {
+        animation-name: jl-snackbar-transition-enter;
+      }
+    }
+
+    @keyframes jl-snackbar-transition-enter {
+      0% {
+        display: none;
+        inset-block-end: -100%;
+      }
+
+      100% {
+        display: flow-root;
+      }
+    }
+
+    @keyframes jl-snackbar-transition-exit {
+      0% {
+        display: flow-root;
+      }
+
+      100% {
+        display: none;
+        inset-block-end: -100%;
+      }
     }
   }
 
@@ -1100,6 +1244,10 @@ SOFTWARE. */
     }
 
     :any-link {
+      /* Motion */
+      transition: text-decoration-color var(--jl-motion-spring-fast-effects),
+        text-decoration-thickness var(--jl-motion-spring-fast-effects);
+
       border-radius: var(--jl-shape-corner-extra-small);
       color: inherit;
       outline-offset: var(--jl-type-leading-half);
@@ -1178,6 +1326,9 @@ SOFTWARE. */
         &:has(> code) {
           /* Color */
           color: var(--jl-code-span-color);
+
+          /* Motion */
+          transition: box-shadow var(--jl-motion-spring-default-spatial);
 
           /* Card */
           --jl-elevation-level: 0;
