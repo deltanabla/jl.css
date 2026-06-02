@@ -1252,6 +1252,7 @@ SOFTWARE. */
       color: inherit;
       outline-offset: var(--jl-type-leading-half);
       text-decoration: var(--jl-button-text-decoration);
+      text-decoration-color: var(--jl-link-color-default);
       text-decoration-skip-ink: var(--jl-button-text-decoration-skip-ink);
       text-underline-offset: var(--jl-button-text-underline-offset);
 
