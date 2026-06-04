@@ -230,19 +230,23 @@ SOFTWARE. */
 
     --jl-palette-primary: var(--jl-palette-accent-red);
     --jl-palette-secondary: var(--jl-palette-accent-blue);
-    --jl-palette-tertiary: #eb97a8;
+    --jl-palette-tertiary: var(--jl-palette-accent-red-purple);
     --jl-palette-link-default: #1971ff;
     --jl-palette-link-visited: #909;
-    --jl-palette-accent-red-purple: #c54ea0;
-    --jl-palette-accent-red: #bf1e33;
-    --jl-palette-accent-yellow-red: #e45e00;
-    --jl-palette-accent-yellow: #ffbe00;
-    --jl-palette-accent-green-yellow: #b9c42f;
-    --jl-palette-accent-green: #4db56a;
-    --jl-palette-accent-blue-green: #0090a8;
-    --jl-palette-accent-blue: #0067c0;
-    --jl-palette-accent-blue-purple: #704cbc;
-    --jl-palette-accent-purple: #a260bf;
+    --jl-palette-accent-red: oklab(0.87 0.18995 0.06369);
+    --jl-palette-accent-yellow-red: oklch(0.87 0.14835 45.8315);
+    --jl-palette-accent-yellow: oklab(0.87 0.0 0.4);
+    --jl-palette-accent-yellow-lime: oklch(0.87 0.168755 102.77125);
+    --jl-palette-accent-lime: oklch(0.87 0.16711 128.1145);
+    --jl-palette-accent-lime-green: oklch(0.87 0.165465 153.45775);
+    --jl-palette-accent-green: oklab(0.87 -0.4 0.0);
+    --jl-palette-accent-green-cyan: oklch(0.87 0.1501475 201.73);
+    --jl-palette-accent-cyan: oklch(0.87 0.136475 224.659);
+    --jl-palette-accent-cyan-blue: oklch(0.87 0.1228025 247.588);
+    --jl-palette-accent-blue: oklab(0.87 0.0203 -0.29996);
+    --jl-palette-accent-purple-blue: oklch(0.87 0.1134225 296.4465);
+    --jl-palette-accent-purple: oklch(0.87 0.117715 322.376);
+    --jl-palette-accent-red-purple: oklch(0.87 0.1220075 348.3055);
     --jl-palette-success: #00b06b;
     --jl-palette-error: #ff4b00;
     --jl-palette-warning: #f2e700;
@@ -300,10 +304,6 @@ SOFTWARE. */
     --jl-color-on-tertiary-warning:
       contrast-color(var(--jl-color-tertiary-warning));
 
-    --jl-color-accent-red-purple:
-      oklab(from var(--jl-palette-accent-red-purple)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
     --jl-color-accent-red:
       oklab(from var(--jl-palette-accent-red)
         /* Oklab */
@@ -316,28 +316,48 @@ SOFTWARE. */
       oklab(from var(--jl-palette-accent-yellow)
         /* Oklab */
         var(--jl-oklab-modifier-light));
-    --jl-color-accent-green-yellow:
-      oklab(from var(--jl-palette-accent-green-yellow)
+    --jl-color-accent-yellow-lime:
+      oklab(from var(--jl-palette-accent-yellow-lime)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-lime:
+      oklab(from var(--jl-palette-accent-lime)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-lime-green:
+      oklab(from var(--jl-palette-accent-lime-green)
         /* Oklab */
         var(--jl-oklab-modifier-light));
     --jl-color-accent-green:
       oklab(from var(--jl-palette-accent-green)
         /* Oklab */
         var(--jl-oklab-modifier-light));
-    --jl-color-accent-blue-green:
-      oklab(from var(--jl-palette-accent-blue-green)
+    --jl-color-accent-green-cyan:
+      oklab(from var(--jl-palette-accent-green-cyan)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-cyan:
+      oklab(from var(--jl-palette-accent-cyan)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-cyan-blue:
+      oklab(from var(--jl-palette-accent-cyan-blue)
         /* Oklab */
         var(--jl-oklab-modifier-light));
     --jl-color-accent-blue:
       oklab(from var(--jl-palette-accent-blue)
         /* Oklab */
         var(--jl-oklab-modifier-light));
-    --jl-color-accent-blue-purple:
-      oklab(from var(--jl-palette-accent-blue-purple)
+    --jl-color-accent-purple-blue:
+      oklab(from var(--jl-palette-accent-purple-blue)
         /* Oklab */
         var(--jl-oklab-modifier-light));
     --jl-color-accent-purple:
       oklab(from var(--jl-palette-accent-purple)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-red-purple:
+      oklab(from var(--jl-palette-accent-red-purple)
         /* Oklab */
         var(--jl-oklab-modifier-light));
 

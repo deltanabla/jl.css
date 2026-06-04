@@ -17,11 +17,11 @@
         /* 内部で適切なトーンを自動計算します */
 
         /* 背景 */
-        --jl-palette-primary: #bf1e33;
+        --jl-palette-primary: var(--jl-palette-accent-red);
 
         /* アクセント */
-        --jl-palette-secondary: #0067c0;
-        --jl-palette-tertiary: #eb97a8;
+        --jl-palette-secondary: var(--jl-palette-accent-blue);
+        --jl-palette-tertiary: var(--jl-palette-accent-red-purple);
 
         /* タイポグラフィー */
 
