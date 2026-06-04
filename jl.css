@@ -776,7 +776,7 @@ SOFTWARE. */
         margin-block: 0 var(--jl-dialog-padding);
       }
 
-      &[open] {
+      &:is(:modal, :popover-open) {
         animation-name: jl-dialog-transition-enter;
       }
     }
