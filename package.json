@@ -1,6 +1,6 @@
 {
   "name": "jl.css",
-  "version": "0.0.0-beta",
+  "version": "0.0.0",
   "description": "セマンティックなHTML要素そのものにデザインを適用するCSSライブラリーです。",
   "keywords": [
     "css",
