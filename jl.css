@@ -171,14 +171,7 @@ SOFTWARE. */
 
   /* Interaction */
 
-  :enabled,
-  :any-link,
-  :modal,
-  :popover-open,
-  :disabled,
-  :hover,
-  :focus-visible,
-  :active {
+  * {
     --jl-state-layer:
       linear-gradient(var(--jl-state-layer-color), var(--jl-state-layer-color));
     --jl-state-layer-color:
