@@ -830,12 +830,15 @@ SOFTWARE. */
 
   @layer disclosure {
     summary {
+      /* Motion */
+      transition: text-decoration var(--jl-motion-spring-fast-spatial);
+
       /* Summary */
       --jl-disclosure-summary-padding-inline:
         calc(var(--jl-button-padding-inline)
           /* Content */
           + var(--jl-disclosure-content-padding-inline));
-      --jl-button-outline-thickness: 0px;
+      --jl-button-emphasis: var(--jl-button-emphasis-low);
       cursor: default;
       border-radius: var(--jl-button-shape-square);
       inline-size: fit-content;
@@ -850,7 +853,7 @@ SOFTWARE. */
         calc(var(--jl-button-margin-block) - var(--jl-button-padding-block));
       margin-inline:
         calc(var(--jl-disclosure-summary-padding-inline) * -1) 0;
-      text-decoration: none;
+      text-decoration: var(--jl-button-text-decoration);
       text-decoration-skip-ink: var(--jl-button-text-decoration-skip-ink);
       text-underline-offset: var(--jl-button-text-underline-offset);
 
@@ -870,10 +873,12 @@ SOFTWARE. */
         scale: var(--jl-button-icon-scale);
       }
 
-      &:hover {
+      &:not(:hover) {
         /* Summary */
-        text-decoration: var(--jl-button-text-decoration);
+        text-decoration-thickness: 0;
+      }
 
+      &:hover {
         /* Icon */
         --jl-disclosure-icon-color: var(--jl-color-tertiary);
       }
@@ -1019,22 +1024,40 @@ SOFTWARE. */
       --jl-button-margin-block:
         max(var(--jl-type-leading-half), var(--jl-interactive-target-spacing));
 
+      /* Hierarchy */
+      --jl-button-emphasis: var(--jl-button-emphasis-medium);
+      --jl-button-emphasis-high: 3;
+      --jl-button-emphasis-medium: 2;
+      --jl-button-emphasis-low: 1;
+
       /* Size */
       --jl-button-container-block-size:
         max((1em - var(--jl-type-leading-half)) * 2 + 1lh,
           var(--jl-state-layer-min-size));
-      --jl-button-outline-thickness: max(1em / 16, 1px);
       --jl-button-icon-scale: calc(20 / 16);
       --jl-button-shape-round: var(--jl-button-container-block-size);
       --jl-button-shape-square: var(--jl-shape-corner-medium);
 
-      --jl-button-text-decoration-line: underline;
       --jl-button-text-decoration-thickness: max(1em / 16, 1px);
+      --jl-button-text-text-decoration-thickness-hovered: max(4em / 16, 4px);
       --jl-button-text-decoration-skip-ink: none;
     }
 
     * {
+      /* Hierarchy */
+      --jl-button-is-filled: clamp(0,
+          var(--jl-button-emphasis) - var(--jl-button-emphasis-medium),
+          1);
+      --jl-button-is-outlined: calc(clamp(0,
+            var(--jl-button-emphasis) - var(--jl-button-emphasis-low),
+            1) - var(--jl-button-is-filled));
+      --jl-button-is-text: calc(clamp(0,
+            var(--jl-button-emphasis),
+            1) - var(--jl-button-is-filled) - var(--jl-button-is-outlined));
+
       /* Size */
+      --jl-button-outline-thickness:
+        calc(max(1em / 16, 1px) * var(--jl-button-is-outlined));
       --jl-button-padding-block:
         calc((var(--jl-button-container-block-size) - 1lh) / 2
           /* Outline thickness */
@@ -1042,9 +1065,8 @@ SOFTWARE. */
       --jl-button-padding-inline:
         calc(var(--jl-button-padding-block) + var(--jl-type-leading-half));
 
-      --jl-button-text-decoration:
-        var(--jl-button-text-decoration-line) solid currentColor
-        /* text-decoration-thickness */
+      --jl-button-text-decoration: underline solid currentColor
+        /* thickness */
         var(--jl-button-text-decoration-thickness);
       --jl-button-text-underline-offset: calc(max(4em / 16, var(--jl-space-50))
           /* text-decoration-thickness */
@@ -1054,7 +1076,11 @@ SOFTWARE. */
     button,
     input:is([type='button'], [type='reset'], [type='submit']) {
       /* Color */
-      accent-color: var(--jl-color-secondary);
+      accent-color: color-mix(in oklab,
+          var(--jl-color-secondary)
+          /* percentage */
+          calc(100% * (var(--jl-button-is-filled) * -1 + 1)),
+          currentColor calc(100% * var(--jl-button-is-filled)));
 
       /* Motion */
       transition: accent-color var(--jl-motion-spring-fast-effects),
@@ -1071,17 +1097,30 @@ SOFTWARE. */
       margin-inline: auto 0;
 
       /* Color */
-      --jl-elevation-level: 0;
+      --jl-elevation-level: calc(var(--jl-button-filled-elevation-level, 0)
+          /* Boolean */
+          * var(--jl-button-is-filled));
       border: var(--jl-button-outline-thickness) solid
         /* Outline color */
         oklab(from currentColor L a b / calc(30 / 80));
       background:
-        /* State layer */
-        var(--jl-state-layer),
-        /* Container */
-        var(--jl-surface-tint);
+        var(--jl-state-layer), var(--jl-surface-tint) color-mix(in oklab,
+          transparent calc(100% * (var(--jl-button-is-filled) * -1 + 1)),
+
+          /* Filled button */
+          var(--jl-button-filled-container-color, var(--jl-color-secondary))
+          /* percentage */
+          calc(100% * var(--jl-button-is-filled)));
       box-shadow: var(--jl-elevation-shadow);
-      color: var(--jl-button-label-color, currentColor);
+      color: color-mix(in oklab,
+          var(--jl-button-label-color, currentColor)
+          /* percentage */
+          calc(100% * (var(--jl-button-is-filled) * -1 + 1)),
+
+          /* Filled button */
+          var(--jl-button-filled-label-color, var(--jl-color-on-secondary))
+          /* percentage */
+          calc(100% * var(--jl-button-is-filled)));
 
       /* Size */
       padding-block: var(--jl-button-padding-block);
@@ -1100,7 +1139,9 @@ SOFTWARE. */
       overflow: hidden;
       text-align: center;
       text-decoration: var(--jl-button-text-decoration);
-      text-decoration-line: none;
+      text-decoration-thickness: calc(var(--jl-button-text-decoration-thickness)
+          /* Text button */
+          * var(--jl-button-is-text));
       text-decoration-skip-ink: var(--jl-button-text-decoration-skip-ink);
       text-underline-offset: var(--jl-button-text-underline-offset);
       text-overflow: ellipsis;
@@ -1119,38 +1160,30 @@ SOFTWARE. */
       &[type='submit'],
       &[type]:not([type='reset'], [type='button'], [command][commandfor]),
       &:not([type]):is(form *, [form] *, [form]) {
-        /* Color */
-        accent-color: currentColor;
-
-        /* Color */
-        --jl-elevation-level: var(--jl-button-filled-elevation-level, 0);
-        background-color:
-          var(--jl-button-filled-container-color, var(--jl-color-secondary));
-        color:
-          var(--jl-button-filled-label-color, var(--jl-color-on-secondary));
-
-        /* Size */
-        --jl-button-outline-thickness: 0px;
-        border: none;
+        /* Hierarchy */
+        --jl-button-emphasis: var(--jl-button-emphasis-high);
       }
 
       &[type='reset'] {
-        /* Size */
-        --jl-button-outline-thickness: 0px;
-        border: none;
-
-        --jl-button-text-decoration-thickness:
-          var(--jl-button-text-text-decoration-thickness, max(1em / 16, 1px));
-        text-decoration-line: var(--jl-button-text-decoration-line);
+        /* Color */
         text-decoration-color: var(--jl-color-primary-error);
+
+        /* Hierarchy */
+        --jl-button-emphasis: var(--jl-button-emphasis-low);
       }
 
       &:hover {
         /* Color */
         --jl-button-filled-elevation-level: 1;
 
-        --jl-button-text-text-decoration-thickness: max(4em / 16, 4px);
-        text-decoration-line: underline;
+        text-decoration-thickness:
+          calc(var(--jl-button-text-decoration-thickness)
+            /* Boolean */
+            * (var(--jl-button-is-text) * -1 + 1)
+            /* Text button */
+            + var(--jl-button-text-text-decoration-thickness-hovered)
+            /* Boolean */
+            * var(--jl-button-is-text));
       }
 
       &:focus-visible,
@@ -1170,7 +1203,7 @@ SOFTWARE. */
         /* Size */
         --jl-button-filled-elevation-level: 0;
 
-        text-decoration: none;
+        text-decoration-thickness: 0;
       }
     }
   }
@@ -1267,7 +1300,7 @@ SOFTWARE. */
     :any-link {
       /* Motion */
       transition: text-decoration-color var(--jl-motion-spring-fast-effects),
-        text-decoration-thickness var(--jl-motion-spring-fast-effects);
+        text-decoration-thickness var(--jl-motion-spring-fast-spatial);
 
       border-radius: var(--jl-shape-corner-extra-small);
       color: inherit;
@@ -1282,7 +1315,8 @@ SOFTWARE. */
       }
 
       &:hover {
-        --jl-button-text-decoration-thickness: max(4em / 16, 4px);
+        text-decoration-thickness:
+          var(--jl-button-text-text-decoration-thickness-hovered);
       }
     }
   }

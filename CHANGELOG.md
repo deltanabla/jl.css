@@ -4,6 +4,13 @@
 
 [Unreleased]: https://github.com/deltanabla/jl.css/compare/v0.0.0...HEAD
 
+### Changed
+
+-   ボタンの重要度に応じた`--jl-button-emphasis`変数を追加しました。
+    -   `--jl-button-emphasis-high`
+    -   `--jl-button-emphasis-medium`
+    -   `--jl-button-emphasis-low`
+
 ## [0.0.0] - 2026-06-05
 
 [0.0.0]: https://github.com/deltanabla/jl.css/releases/tag/v0.0.0

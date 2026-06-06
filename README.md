@@ -59,6 +59,27 @@
 
 ### `button`要素
 
+ボタンの重要度に応じて、以下のようにスタイルが切り替わります。
+
+```css
+button {
+  /* アウトライン・ボタン */
+  --jl-button-emphasis: var(--jl-button-emphasis-medium);
+
+  &[type='submit'] {
+    /* 塗りボタン */
+    --jl-button-emphasis: var(--jl-button-emphasis-high);
+  }
+
+  &[type='reset'] {
+    /* テキスト・ボタン */
+    --jl-button-emphasis: var(--jl-button-emphasis-low);
+  }
+}
+```
+
+#### `button`要素のアイコン
+
 ボタンのテキストの前にアイコンを配置したい場合は、以下のようにCSS変数を上書きしてください。
 
 ```css
