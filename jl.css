@@ -735,6 +735,7 @@ SOFTWARE. */
   }
 
   /* Dialog */
+
   @layer dialog {
     dialog {
       /* Motion */
@@ -1361,6 +1362,7 @@ SOFTWARE. */
           min-inline-size: 0;
 
           overflow: auto;
+          overscroll-behavior: contain;
           text-overflow: ellipsis;
           white-space: pre;
 
