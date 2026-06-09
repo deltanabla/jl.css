@@ -244,116 +244,6 @@ SOFTWARE. */
     --jl-palette-error: #ff4b00;
     --jl-palette-warning: #f2e700;
 
-    --jl-color-primary:
-      oklab(from var(--jl-palette-primary) var(--jl-oklab-modifier-dark));
-    --jl-color-on-primary: contrast-color(var(--jl-color-primary));
-    --jl-color-primary-link-default:
-      oklab(from var(--jl-palette-link-default) var(--jl-oklab-modifier-light));
-    --jl-color-primary-link-visited:
-      oklab(from var(--jl-palette-link-visited) var(--jl-oklab-modifier-light));
-    --jl-color-primary-success:
-      oklab(from var(--jl-palette-success) var(--jl-oklab-modifier-light));
-    --jl-color-on-primary-success:
-      contrast-color(var(--jl-color-primary-success));
-    --jl-color-primary-error:
-      oklab(from var(--jl-palette-error) var(--jl-oklab-modifier-light));
-    --jl-color-on-primary-error: contrast-color(var(--jl-color-primary-error));
-    --jl-color-primary-warning:
-      oklab(from var(--jl-palette-warning) var(--jl-oklab-modifier-light));
-    --jl-color-on-primary-warning:
-      contrast-color(var(--jl-color-primary-warning));
-
-    --jl-color-secondary:
-      oklab(from var(--jl-palette-secondary) var(--jl-oklab-modifier-light));
-    --jl-color-on-secondary: contrast-color(var(--jl-color-secondary));
-    --jl-color-secondary-link-default:
-      oklab(from var(--jl-palette-link-default) var(--jl-oklab-modifier-dark));
-    --jl-color-secondary-link-visited:
-      oklab(from var(--jl-palette-link-visited) var(--jl-oklab-modifier-dark));
-    --jl-color-secondary-success: var(--jl-palette-success-dark);
-    --jl-color-on-secondary-success:
-      contrast-color(var(--jl-color-secondary-success));
-    --jl-color-secondary-error: var(--jl-palette-error-dark);
-    --jl-color-on-secondary-error:
-      contrast-color(var(--jl-color-secondary-error));
-    --jl-color-secondary-warning: var(--jl-palette-warning-dark);
-    --jl-color-on-secondary-warning:
-      contrast-color(var(--jl-color-secondary-warning));
-
-    --jl-color-tertiary:
-      oklab(from var(--jl-palette-tertiary) var(--jl-oklab-modifier-light));
-    --jl-color-on-tertiary: contrast-color(var(--jl-color-on-tertiary));
-    --jl-color-tertiary-link-default:
-      oklab(from var(--jl-palette-link-default) var(--jl-oklab-modifier-dark));
-    --jl-color-tertiary-link-visited:
-      oklab(from var(--jl-palette-link-visited) var(--jl-oklab-modifier-dark));
-    --jl-color-tertiary-success: var(--jl-palette-success-dark);
-    --jl-color-on-tertiary-success:
-      contrast-color(var(--jl-color-tertiary-success));
-    --jl-color-tertiary-error: var(--jl-palette-error-dark);
-    --jl-color-on-tertiary-error:
-      contrast-color(var(--jl-color-tertiary-error));
-    --jl-color-tertiary-warning: var(--jl-palette-warning-dark);
-    --jl-color-on-tertiary-warning:
-      contrast-color(var(--jl-color-tertiary-warning));
-
-    --jl-color-accent-red:
-      oklab(from var(--jl-palette-accent-red)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
-    --jl-color-accent-yellow-red:
-      oklab(from var(--jl-palette-accent-yellow-red)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
-    --jl-color-accent-yellow:
-      oklab(from var(--jl-palette-accent-yellow)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
-    --jl-color-accent-yellow-lime:
-      oklab(from var(--jl-palette-accent-yellow-lime)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
-    --jl-color-accent-lime:
-      oklab(from var(--jl-palette-accent-lime)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
-    --jl-color-accent-lime-green:
-      oklab(from var(--jl-palette-accent-lime-green)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
-    --jl-color-accent-green:
-      oklab(from var(--jl-palette-accent-green)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
-    --jl-color-accent-green-cyan:
-      oklab(from var(--jl-palette-accent-green-cyan)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
-    --jl-color-accent-cyan:
-      oklab(from var(--jl-palette-accent-cyan)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
-    --jl-color-accent-cyan-blue:
-      oklab(from var(--jl-palette-accent-cyan-blue)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
-    --jl-color-accent-blue:
-      oklab(from var(--jl-palette-accent-blue)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
-    --jl-color-accent-purple-blue:
-      oklab(from var(--jl-palette-accent-purple-blue)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
-    --jl-color-accent-purple:
-      oklab(from var(--jl-palette-accent-purple)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
-    --jl-color-accent-red-purple:
-      oklab(from var(--jl-palette-accent-red-purple)
-        /* Oklab */
-        var(--jl-oklab-modifier-light));
-
     --jl-color-shadow: #000;
 
     --jl-oklab-modifier-light: 0.87 a b;
@@ -593,7 +483,120 @@ SOFTWARE. */
   }
 
   * {
+    /* Color */
+
+    --jl-color-primary:
+      oklab(from var(--jl-palette-primary) var(--jl-oklab-modifier-dark));
+    --jl-color-on-primary: contrast-color(var(--jl-color-primary));
+    --jl-color-primary-link-default:
+      oklab(from var(--jl-palette-link-default) var(--jl-oklab-modifier-light));
+    --jl-color-primary-link-visited:
+      oklab(from var(--jl-palette-link-visited) var(--jl-oklab-modifier-light));
+    --jl-color-primary-success:
+      oklab(from var(--jl-palette-success) var(--jl-oklab-modifier-light));
+    --jl-color-on-primary-success:
+      contrast-color(var(--jl-color-primary-success));
+    --jl-color-primary-error:
+      oklab(from var(--jl-palette-error) var(--jl-oklab-modifier-light));
+    --jl-color-on-primary-error: contrast-color(var(--jl-color-primary-error));
+    --jl-color-primary-warning:
+      oklab(from var(--jl-palette-warning) var(--jl-oklab-modifier-light));
+    --jl-color-on-primary-warning:
+      contrast-color(var(--jl-color-primary-warning));
+
+    --jl-color-secondary:
+      oklab(from var(--jl-palette-secondary) var(--jl-oklab-modifier-light));
+    --jl-color-on-secondary: contrast-color(var(--jl-color-secondary));
+    --jl-color-secondary-link-default:
+      oklab(from var(--jl-palette-link-default) var(--jl-oklab-modifier-dark));
+    --jl-color-secondary-link-visited:
+      oklab(from var(--jl-palette-link-visited) var(--jl-oklab-modifier-dark));
+    --jl-color-secondary-success: var(--jl-palette-success-dark);
+    --jl-color-on-secondary-success:
+      contrast-color(var(--jl-color-secondary-success));
+    --jl-color-secondary-error: var(--jl-palette-error-dark);
+    --jl-color-on-secondary-error:
+      contrast-color(var(--jl-color-secondary-error));
+    --jl-color-secondary-warning: var(--jl-palette-warning-dark);
+    --jl-color-on-secondary-warning:
+      contrast-color(var(--jl-color-secondary-warning));
+
+    --jl-color-tertiary:
+      oklab(from var(--jl-palette-tertiary) var(--jl-oklab-modifier-light));
+    --jl-color-on-tertiary: contrast-color(var(--jl-color-on-tertiary));
+    --jl-color-tertiary-link-default:
+      oklab(from var(--jl-palette-link-default) var(--jl-oklab-modifier-dark));
+    --jl-color-tertiary-link-visited:
+      oklab(from var(--jl-palette-link-visited) var(--jl-oklab-modifier-dark));
+    --jl-color-tertiary-success: var(--jl-palette-success-dark);
+    --jl-color-on-tertiary-success:
+      contrast-color(var(--jl-color-tertiary-success));
+    --jl-color-tertiary-error: var(--jl-palette-error-dark);
+    --jl-color-on-tertiary-error:
+      contrast-color(var(--jl-color-tertiary-error));
+    --jl-color-tertiary-warning: var(--jl-palette-warning-dark);
+    --jl-color-on-tertiary-warning:
+      contrast-color(var(--jl-color-tertiary-warning));
+
+    --jl-color-accent-red:
+      oklab(from var(--jl-palette-accent-red)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-yellow-red:
+      oklab(from var(--jl-palette-accent-yellow-red)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-yellow:
+      oklab(from var(--jl-palette-accent-yellow)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-yellow-lime:
+      oklab(from var(--jl-palette-accent-yellow-lime)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-lime:
+      oklab(from var(--jl-palette-accent-lime)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-lime-green:
+      oklab(from var(--jl-palette-accent-lime-green)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-green:
+      oklab(from var(--jl-palette-accent-green)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-green-cyan:
+      oklab(from var(--jl-palette-accent-green-cyan)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-cyan:
+      oklab(from var(--jl-palette-accent-cyan)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-cyan-blue:
+      oklab(from var(--jl-palette-accent-cyan-blue)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-blue:
+      oklab(from var(--jl-palette-accent-blue)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-purple-blue:
+      oklab(from var(--jl-palette-accent-purple-blue)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-purple:
+      oklab(from var(--jl-palette-accent-purple)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+    --jl-color-accent-red-purple:
+      oklab(from var(--jl-palette-accent-red-purple)
+        /* Oklab */
+        var(--jl-oklab-modifier-light));
+
     /* Elevation */
+
     --jl-surface-tint: linear-gradient(
         /* Color stop */
         var(--jl-surface-tint-color),
