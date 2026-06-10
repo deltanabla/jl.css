@@ -4,12 +4,17 @@
 
 [Unreleased]: https://github.com/deltanabla/jl.css/compare/v0.0.0...HEAD
 
-### Changed
+### Added
 
 -   ボタンの重要度に応じた`--jl-button-emphasis`変数を追加しました。
     -   `--jl-button-emphasis-high`
     -   `--jl-button-emphasis-medium`
     -   `--jl-button-emphasis-low`
+
+### Fixed
+
+-   コード・ブロックのオーバースクロール動作を設定しました。
+-   インタラクションのスタイルを正しく適用するために、初期化処理を追加しました。
 
 ## [0.0.0] - 2026-06-05
 
