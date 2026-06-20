@@ -8,7 +8,7 @@
 
 1.  HTMLの`<head>`内で読み込みます。
     ```html
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/deltanabla/jl.css@0.0.0/jl.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/deltanabla/jl.css@0.1.0/jl.css">
 1.  `:root`のCSS変数を上書きするだけでカスタマイズできます。
     ```html
     <style>
@@ -122,7 +122,7 @@ button {
 
 ```html
 <script type="module">
-  import {SnackbarAttacher} from 'https://cdn.jsdelivr.net/gh/deltanabla/jl.css@0.0.0/index.js';
+  import {SnackbarAttacher} from 'https://cdn.jsdelivr.net/gh/deltanabla/jl.css@0.1.0/index.js';
 
   const snackbarAttacher = new SnackbarAttacher('#snackbar');
   snackbarAttacher.attach();

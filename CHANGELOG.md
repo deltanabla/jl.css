@@ -2,7 +2,11 @@
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/deltanabla/jl.css/compare/v0.0.0...HEAD
+[Unreleased]: https://github.com/deltanabla/jl.css/compare/v0.1.0...HEAD
+
+## [0.1.0] - 2026-06-10
+
+[0.1.0]: https://github.com/deltanabla/jl.css/compare/v0.0.0...v0.1.0
 
 ### Added
 
