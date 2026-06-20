@@ -966,7 +966,6 @@ SOFTWARE. */
         resize: var(--jl-text-field-resize);
 
         field-sizing: content;
-        overscroll-behavior: contain;
       }
 
       &:read-only {

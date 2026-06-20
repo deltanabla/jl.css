@@ -4,6 +4,10 @@
 
 [Unreleased]: https://github.com/deltanabla/jl.css/compare/v0.1.0...HEAD
 
+### Fixed
+
+-   テキスト・フィールドの意図しないオーバースクロール動作を無効化しました。
+
 ## [0.1.0] - 2026-06-10
 
 [0.1.0]: https://github.com/deltanabla/jl.css/compare/v0.0.0...v0.1.0
